@@ -1,7 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigationType } from 'react-router'
 import './App.css'
 import './board.css'
+import './landing.css'
 import RequireAuth from './components/RequireAuth.jsx'
 import AuthCallback from './pages/AuthCallback.jsx'
 import Create from './pages/Create.jsx'
@@ -17,7 +18,12 @@ export default function App() {
 
   const navigationType = useNavigationType()
 
+  const shownPath = useRef(null)
+
   useEffect(() => {
+    // Only a change of page scrolls. Jumping to a section of the same page must not.
+    if (shownPath.current === pathname) return
+    shownPath.current = pathname
     // Going back to a list of posts keeps its place; PostList handles that.
     const isList = pathname === '/home' || pathname.startsWith('/profile/')
     if (navigationType === 'POP' && isList) return

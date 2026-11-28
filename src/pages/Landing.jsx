@@ -1,30 +1,30 @@
 import { Link } from 'react-router'
 import Logo from '../components/Logo.jsx'
 
-const PILLARS = [
+// Only what works today. Add to these lists when a new feature goes live.
+const STEPS = [
   {
-    title: 'Noticeboard',
-    text: 'Public conversations, text posts, community updates and thoughtful discussions.',
+    title: 'See what’s happening',
+    text: 'Read the noticeboard without signing in. The newest posts come first.',
   },
   {
-    title: 'Discover',
-    text: 'Visual stories, short-form videos and local content worth knowing about.',
-    later: true,
+    title: 'Post what you see',
+    text: 'Sign in with Google, then add a few words, a photo and the place.',
   },
   {
-    title: 'Stories',
-    text: 'Temporary public moments that bring people and places closer.',
-    later: true,
+    title: 'Pass it on',
+    text: 'Every post has its own link, so you can send it to people who need it.',
   },
 ]
 
-const TOPICS = [
-  'Safety & Crime',
-  'Traffic & Roads',
-  'Power & Water',
-  'Weather & Flooding',
-  'Community Notice',
-  'Local Experiences',
+// `id` matches the topic filter on the board (src/lib/categories.js).
+const TOPIC_LINKS = [
+  { id: 'safety', name: 'Safety & Crime' },
+  { id: 'traffic', name: 'Traffic & Roads' },
+  { id: 'power', name: 'Power & Water' },
+  { id: 'weather', name: 'Weather & Flooding' },
+  { id: 'notice', name: 'Community Notices' },
+  { id: 'other', name: 'Everything else' },
 ]
 
 export default function Landing() {
@@ -33,9 +33,8 @@ export default function Landing() {
       <nav className="landing-nav">
         <Logo />
         <div className="landing-links">
-          <a href="#product">Product</a>
-          <a href="#discover">Discover</a>
-          <a href="#about">About</a>
+          <a href="#how">How it works</a>
+          <a href="#topics">Topics</a>
         </div>
         <div className="nav-actions">
           <Link className="button-link text-button" to="/login">
@@ -58,8 +57,8 @@ export default function Landing() {
             <em>Your story.</em>
           </h1>
           <p className="hero-lede">
-            Discover what is happening around you. Share what matters. Stay connected to the
-            communities that make your world.
+            See what is happening around you, from the people who are there. Share what your
+            neighbours need to know.
           </p>
           <div className="hero-actions">
             <Link className="button-link primary" to="/signup">
@@ -70,23 +69,20 @@ export default function Landing() {
             </Link>
           </div>
         </div>
-        <SamplePage />
+        <SamplePost />
       </section>
 
-      <section className="pillars" id="product">
-        {PILLARS.map((pillar, i) => (
-          <article key={pillar.title}>
-            <span>
-              0{i + 1}
-              {pillar.later && ' · Coming later'}
-            </span>
-            <h2>{pillar.title}</h2>
-            <p>{pillar.text}</p>
+      <section className="pillars" id="how" aria-label="How it works">
+        {STEPS.map((step, i) => (
+          <article key={step.title}>
+            <span>0{i + 1}</span>
+            <h2>{step.title}</h2>
+            <p>{step.text}</p>
           </article>
         ))}
       </section>
 
-      <section className="community-section" id="discover">
+      <section className="community-section" id="topics">
         <div>
           <p className="eyebrow">Closer to home</p>
           <h2>
@@ -96,17 +92,16 @@ export default function Landing() {
           </h2>
         </div>
         <div className="community-grid">
-          {TOPICS.map((topic, i) => (
-            <div key={topic}>
-              <span>0{i + 1}</span>
-              <strong>{topic}</strong>
-            </div>
+          {TOPIC_LINKS.map((topic) => (
+            <Link key={topic.id} to={`/home?topic=${topic.id}`}>
+              <strong>{topic.name}</strong>
+              <span aria-hidden="true">→</span>
+            </Link>
           ))}
         </div>
       </section>
 
       <section className="final-cta">
-        <p>Chapter 01 / Connect</p>
         <h2>
           Your community has a story.
           <br />
@@ -117,14 +112,9 @@ export default function Landing() {
         </Link>
       </section>
 
-      <footer id="about">
+      <footer>
         <Logo />
-        <div>
-          <a>About</a>
-          <a>Privacy</a>
-          <a>Terms</a>
-          <a>Contact</a>
-        </div>
+        <p>Posts are written by community members and are not officially verified.</p>
         <small>© 2026 RELLO</small>
       </footer>
     </main>
@@ -139,13 +129,10 @@ const SAMPLE_PHOTO = {
 }
 
 // An illustration of the product. The post is made up; nothing in it is live.
-function SamplePage() {
+function SamplePost() {
   return (
     <div className="hero-product">
-      <div className="phone-note">
-        <span>Sample page</span>
-        <span>Board</span>
-      </div>
+      <p className="sample-note">Sample post</p>
       <div className="journal-preview">
         <article className="post">
           <div className="post-author">
