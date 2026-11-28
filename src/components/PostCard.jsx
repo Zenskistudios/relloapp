@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import { timeAgo } from '../lib/format.js'
+import { photoUrl } from '../lib/photos.js'
 import Avatar from './Avatar.jsx'
 
 // Like, comment, Confirmed and bookmark buttons return once they save for real.
@@ -22,7 +23,17 @@ export default function PostCard({ post }) {
         <span>{post.category}</span>
         {post.location && <span>⌖ {post.location}</span>}
       </div>
-      <p className="post-text">{post.body}</p>
+      {post.body && <p className="post-text">{post.body}</p>}
+      {post.image_path && (
+        <a href={photoUrl(post.image_path)} target="_blank" rel="noreferrer">
+          <img
+            className="post-image"
+            src={photoUrl(post.image_path)}
+            alt={`Photo shared by ${author.display_name}. Open full size.`}
+            loading="lazy"
+          />
+        </a>
+      )}
     </article>
   )
 }

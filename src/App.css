@@ -35,3 +35,10 @@ a.logo-button{display:block}
 .composer-tools{flex-direction:column;gap:6px}
 .composer-tools label{justify-content:space-between;gap:8px;margin-right:0}
 }
+.composer-tools input[type=file]{display:block;position:absolute;width:1px;height:1px;opacity:0}
+.photo-picker{cursor:pointer;position:relative}
+.photo-picker:focus-within{outline:2px solid var(--green);outline-offset:2px}
+.media-preview img{display:block;object-fit:contain;background:var(--cream)}
+.media-preview button{border:1px solid var(--line);cursor:pointer;font-size:18px}
+.post>a{display:block}
+.post-image{background:var(--cream)}

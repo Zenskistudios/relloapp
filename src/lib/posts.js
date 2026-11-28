@@ -1,9 +1,10 @@
+import { removePhoto, uploadPhoto } from './photos.js'
 import { supabase } from './supabase.js'
 
 export const PAGE_SIZE = 20
 
 const POST_FIELDS = `
-  id, category, body, location, created_at,
+  id, category, body, location, image_path, created_at,
   author:profiles!posts_author_id_fkey ( handle, display_name )
 `
 
@@ -30,14 +31,24 @@ export async function fetchPosts({ authorId, before } = {}) {
 }
 
 // author_id and created_at are filled in by the database.
-export async function createPost({ body, category, location, commentsEnabled }) {
+// `photo` is an already prepared JPEG; `userId` names the folder it goes in.
+export async function createPost({ body, category, location, commentsEnabled, photo, userId }) {
+  const imagePath = photo ? await uploadPhoto(photo, userId) : null
+
   const { error } = await supabase.from('posts').insert({
     body: body.trim(),
     category,
     location: location.trim(),
     comments_enabled: commentsEnabled,
+    ...(imagePath && { image_path: imagePath }),
   })
-  if (error) throw error
+
+  if (error) {
+    // A database error code means the entry was definitely not saved, so the
+    // file is not needed. Without one (a dropped connection) it may have saved.
+    if (imagePath && error.code) await removePhoto(imagePath)
+    throw error
+  }
 }
 
 export async function fetchProfile(handle) {

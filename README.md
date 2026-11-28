@@ -2,10 +2,10 @@
 
 A notebook-inspired community journal, built with React, Vite and Supabase.
 
-**Working now:** Google sign-in, a public newest-first journal, text entries with a category and
-location, and public profiles.
+**Working now:** Google sign-in, a public newest-first journal, entries with text, one photo, a
+category and location, and public profiles.
 
-**Not built yet:** photos, likes, comments, Confirmed, bookmarks, delete, report, profile editing,
+**Not built yet:** likes, comments, Confirmed, bookmarks, delete, report, profile editing,
 video, Stories, follows, notifications and search. The database already has tables and security
 rules for comments, reactions, bookmarks and reports.
 
@@ -17,6 +17,7 @@ You need Node.js 22.12 or newer.
 
 1. Create a project at [supabase.com](https://supabase.com).
 2. Open **SQL Editor**, paste all of [`supabase/schema.sql`](supabase/schema.sql) and run it once.
+3. Do the same with [`supabase/photos.sql`](supabase/photos.sql).
 
 ### 2. Connect the app
 
@@ -59,7 +60,15 @@ Open <http://localhost:5173> (use `localhost`, so it matches the addresses above
 ## Moderation, for now
 
 In the Supabase **Table Editor**, read the `reports` table. To remove a post from public view, set
-its `hidden_at` to the current time.
+its `hidden_at` to the current time. If it has a photo, also delete that file under **Storage >
+post-photos** (the post's `image_path` names it), because the photo's address keeps working until
+you do.
+
+## Photos
+
+The app shrinks each photo to a JPEG under 1 MB before uploading it, which also removes the GPS
+location a camera may store in the file. This happens in the browser, so someone bypassing the app
+could upload a file with that data still in it. There is no daily upload limit yet.
 
 ## Check your work
 
@@ -79,4 +88,5 @@ src/
   later/        original mock-up, not used by the app
 supabase/
   schema.sql    tables and security rules
+  photos.sql    photo uploads (run after schema.sql)
 ```
