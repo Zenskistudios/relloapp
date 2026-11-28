@@ -5,7 +5,7 @@ export function saveReturnTo(path) {
   try {
     sessionStorage.setItem(KEY, path)
   } catch {
-    // Storage can be blocked; the person lands on the Journal instead.
+    // Storage can be blocked; the person lands on the Board instead.
   }
 }
 

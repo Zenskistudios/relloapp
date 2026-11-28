@@ -74,7 +74,7 @@ export default function Create() {
     } catch (err) {
       console.error('Could not publish:', err.message)
       // The text and photo stay on the page so nothing is lost.
-      setError('Your entry was not published. Check your connection and try again.')
+      setError('Your post was not published. Check your connection and try again.')
       setBusy(false)
     }
   }
@@ -84,7 +84,7 @@ export default function Create() {
       <form onSubmit={publish}>
         <header className="page-header">
           <div>
-            <p>New entry</p>
+            <p>New post</p>
             <h1>Create</h1>
           </div>
           <button className="primary small" type="submit" disabled={busy || preparing}>
@@ -96,7 +96,7 @@ export default function Create() {
             <Avatar name={profile?.display_name} />
             <div className="composer-content">
               <textarea
-                aria-label="Entry"
+                aria-label="Post"
                 maxLength={500}
                 value={body}
                 onChange={(e) => {

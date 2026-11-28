@@ -3,7 +3,7 @@ import Logo from '../components/Logo.jsx'
 
 const PILLARS = [
   {
-    title: 'Journal',
+    title: 'Noticeboard',
     text: 'Public conversations, text posts, community updates and thoughtful discussions.',
   },
   {
@@ -49,7 +49,7 @@ export default function Landing() {
 
       <section className="hero-section">
         <div className="hero-copy">
-          <p className="eyebrow">A new kind of social journal</p>
+          <p className="eyebrow">Your community noticeboard</p>
           <h1>
             Your world.
             <br />
@@ -137,7 +137,7 @@ function SamplePage() {
     <div className="hero-product">
       <div className="phone-note">
         <span>Sample page</span>
-        <span>Journal</span>
+        <span>Board</span>
       </div>
       <div className="journal-preview">
         <div className="preview-top">

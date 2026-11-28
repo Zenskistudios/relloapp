@@ -4,7 +4,7 @@ import { useAuth } from '../auth/AuthContext.js'
 export default function AppShell({ children }) {
   const { user, profile } = useAuth()
   const items = [
-    { label: 'Journal', symbol: '⌂', to: '/home' },
+    { label: 'Board', symbol: '⌂', to: '/home' },
     { label: 'Create', symbol: '+', to: '/create' },
     { label: 'Profile', symbol: '♙', to: profile ? `/profile/${profile.handle}` : '/profile' },
   ]
@@ -35,10 +35,10 @@ export default function AppShell({ children }) {
       <aside className="context">
         <section>
           <div className="section-heading">
-            <h3>About this journal</h3>
+            <h3>About this noticeboard</h3>
           </div>
           <p className="context-note">
-            Entries appear newest first. They are written by members of the community and are not
+            Posts appear newest first. They are written by members of the community and are not
             officially verified.
           </p>
         </section>

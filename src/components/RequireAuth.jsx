@@ -18,7 +18,7 @@ export default function RequireAuth() {
   if (loading) {
     return (
       <AppShell>
-        <Notice title="Opening your journal…" />
+        <Notice title="Opening the noticeboard…" />
       </AppShell>
     )
   }

@@ -1,8 +1,8 @@
 # RELLO
 
-A notebook-inspired community journal, built with React, Vite and Supabase.
+A notebook-styled community noticeboard, built with React, Vite and Supabase.
 
-**Working now:** Google sign-in, a public newest-first journal, entries with text, one photo, a
+**Working now:** Google sign-in, a public newest-first noticeboard, posts with text, one photo, a
 category and location, and public profiles.
 
 **Not built yet:** likes, comments, Confirmed, bookmarks, delete, report, profile editing,

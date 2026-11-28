@@ -15,7 +15,7 @@ export default function Feed() {
       <header className="page-header">
         <div>
           <p>Newest first</p>
-          <h1>Journal</h1>
+          <h1>Noticeboard</h1>
         </div>
         <div className="header-actions">
           {supabase && (
@@ -34,9 +34,9 @@ export default function Feed() {
         <PostList
           key={version}
           empty={
-            <Notice title="The first page is blank.">
+            <Notice title="The board is empty.">
               <p>
-                <Link to="/create">Write the first entry.</Link>
+                <Link to="/create">Post the first notice.</Link>
               </p>
             </Notice>
           }

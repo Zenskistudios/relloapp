@@ -42,3 +42,4 @@ a.logo-button{display:block}
 .media-preview button{border:1px solid var(--line);cursor:pointer;font-size:18px}
 .post>a{display:block}
 .post-image{background:var(--cream)}
+@media(max-width:760px){.page-header{height:auto;min-height:92px;flex-wrap:wrap;gap:12px}.page-header h1{font-size:29px}.header-actions .small{padding-left:13px;padding-right:13px}}

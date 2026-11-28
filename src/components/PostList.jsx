@@ -62,15 +62,15 @@ export default function PostList({ authorId, empty }) {
           </button>
         </div>
       )}
-      {!loading && !error && posts.length === 0 && (empty ?? <Notice title="No entries yet." />)}
+      {!loading && !error && posts.length === 0 && (empty ?? <Notice title="No posts yet." />)}
       {!loading && !error && posts.length > 0 && (
         <div className="feed-status">
           {hasMore ? (
             <button className="secondary small" onClick={() => loadMore(last)}>
-              Load older entries
+              Load older posts
             </button>
           ) : (
-            <p>That is every entry so far.</p>
+            <p>That is every post so far.</p>
           )}
         </div>
       )}

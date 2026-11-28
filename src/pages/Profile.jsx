@@ -79,7 +79,7 @@ function ProfileView({ handle }) {
         <div className="profile-stats">
           <div>
             <strong>{total}</strong>
-            <span>{total === 1 ? 'Entry' : 'Entries'}</span>
+            <span>{total === 1 ? 'Post' : 'Posts'}</span>
           </div>
         </div>
       </section>

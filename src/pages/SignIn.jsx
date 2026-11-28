@@ -33,7 +33,7 @@ export default function SignIn() {
         <Logo />
       </Link>
       <section className="auth-card">
-        <p className="eyebrow">Your community journal</p>
+        <p className="eyebrow">Your community noticeboard</p>
         <h1>Join RELLO</h1>
         {supabase ? (
           <>
@@ -53,7 +53,7 @@ export default function SignIn() {
           <SetupNotice />
         )}
         <p className="auth-switch">
-          <Link to="/home">Read the journal without signing in</Link>
+          <Link to="/home">See what’s happening without signing in</Link>
         </p>
       </section>
     </main>
