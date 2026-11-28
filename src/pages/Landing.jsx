@@ -133,9 +133,9 @@ export default function Landing() {
 
 // Free to use under the Unsplash License: https://unsplash.com/license
 const SAMPLE_PHOTO = {
-  src: 'https://images.unsplash.com/photo-1573662766191-066ba9570a4b',
-  page: 'https://unsplash.com/photos/yellow-vehicles-during-daytime-WSu7qcT3rVg',
-  by: 'sheyi owolabi',
+  src: 'https://images.unsplash.com/photo-1548013759-dbf491716275',
+  page: 'https://unsplash.com/photos/vehicles-on-road-during-daytime-fjefNIs0230',
+  by: 'Ayoola Salako',
 }
 
 // An illustration of the product. The post is made up; nothing in it is live.
@@ -161,7 +161,7 @@ function SamplePage() {
             <img
               className="post-image"
               src={`${SAMPLE_PHOTO.src}?auto=format&fit=crop&w=1200&h=600&q=75`}
-              alt="A yellow danfo bus in Lagos"
+              alt="Vehicles and a tricycle on a road in Lagos"
               width="1200"
               height="600"
             />
@@ -175,8 +175,7 @@ function SamplePage() {
           </p>
           <p className="post-place">Lagos</p>
           <p className="post-text">
-            Traffic is moving slowly this evening. If you are taking a bus, give yourself extra
-            time.
+            Traffic is moving slowly. If you are heading out, give yourself extra time.
           </p>
         </article>
       </div>
