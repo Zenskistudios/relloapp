@@ -1,0 +1,150 @@
+/* The app screens: shell, board, one post and writing a post. */
+:root{--soft:#62655b;--line2:#d9d3c4;--tint:#e6eee4}
+
+/* Shell */
+.app-shell{min-height:100vh;background:var(--cream);display:grid;grid-template-columns:210px minmax(480px,680px) 310px;justify-content:center}
+.sidebar{height:100vh;position:sticky;top:0;padding:28px 20px 24px 12px;border-right:1px solid var(--line);display:flex;flex-direction:column}
+.logo-button{display:block;width:52px;height:52px;padding:6px}
+.logo-button img{width:40px;height:40px;object-fit:cover;border-radius:8px}
+.sidebar nav{display:flex;flex-direction:column;gap:6px;margin-top:44px}
+.sidebar nav a,.sidebar-bottom a{height:50px;display:flex;align-items:center;gap:14px;padding:0 14px;border-radius:25px;color:var(--soft)}
+.sidebar nav a b,.sidebar-bottom a b{font-size:14px}
+.sidebar nav a.active{color:var(--green);background:var(--tint)}
+.sidebar nav a.nav-new{background:var(--green);color:white}
+.sidebar-bottom{margin-top:auto}
+.main-page{min-width:0;min-height:100vh;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+/* Shared controls */
+.icon-circle{flex:none;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--ink);cursor:pointer}
+.primary,.secondary{border-radius:999px}
+.primary.small,.secondary.small{white-space:nowrap}
+.page-header{min-height:92px;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.page-header p{margin:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--soft)}
+.page-header h1{margin:4px 0 0;font-family:'Playfair Display',Georgia,serif;font-size:36px;line-height:1.1}
+.header-actions{display:flex;align-items:center;gap:8px}
+.board-logo{display:none}
+
+/* Topic filters */
+.topic-row{display:flex;gap:8px;overflow-x:auto;padding:4px 24px 14px;scrollbar-width:none}
+.topic-row::-webkit-scrollbar{display:none}
+.topic-row button{flex:none;height:44px;padding:0 16px;border:1px solid var(--line2);border-radius:12px;background:var(--paper);color:var(--ink);font-size:14px}
+.topic-row button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:white;font-weight:700}
+@media(min-width:761px){.topic-row{flex-wrap:wrap}}
+
+/* Board cards */
+.feed{display:flex;flex-direction:column;gap:14px;padding:0 24px 24px}
+.post{padding:14px;background:var(--paper);border:1px solid var(--line);border-radius:22px}
+.post-author{display:flex;align-items:center;gap:10px}
+.author-meta{display:flex;flex-direction:column;min-width:0;overflow-wrap:anywhere}
+.author-meta p{margin:0;font-size:14px;line-height:1.4}
+.author-meta p a{font-weight:700}
+.author-meta a:hover,.post-place a:hover{text-decoration:underline}
+.post-time{align-self:flex-start;font-size:12px;color:var(--soft)}
+a.post-time{padding:2px 0}
+.post-photo{position:relative;margin-top:12px;border-radius:16px;overflow:hidden;background:var(--tint)}
+.post-photo a{display:block}
+.post-image{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
+.post-tag{position:absolute;left:0;top:14px;max-width:calc(100% - 20px);padding:7px 12px;border-radius:0 10px 10px 0;background:var(--paper);color:var(--green);font-size:12px;font-weight:700}
+.post-tag.plain{position:static;display:inline-block;margin-top:12px;border-radius:10px;background:var(--tint)}
+.post-place{margin:12px 0 0;font-family:'Playfair Display',Georgia,serif;font-size:21px;font-weight:600;line-height:1.25;overflow-wrap:anywhere}
+.post-text{margin:8px 0 0;font-size:15px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.post-text.clamp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+.see-more{display:inline-block;padding:6px 0 2px;color:var(--green);font-size:14px;font-weight:700}
+.post-foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)}
+.post-foot>a{display:inline-flex;align-items:center;height:44px;padding:0 18px;border:1px solid var(--green);border-radius:22px;color:var(--green);font-size:14px;font-weight:700}
+.post-foot .icon-circle{border-color:transparent}
+.share{display:inline-flex;align-items:center;gap:8px}
+.share-message:not(:empty){padding:6px 10px;border-radius:10px;background:var(--ink);color:white;font-size:12px}
+.feed-status{margin:0;padding:18px 20px;text-align:center;font-size:13px;color:var(--soft)}
+
+/* One post */
+.post-page{position:relative;display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
+.post-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 0}
+.post-bar.over{position:absolute;z-index:2;left:0;right:0;pointer-events:none}
+.post-bar.over>*{pointer-events:auto}
+.post-hero{display:flex;justify-content:center;background:#20241f}
+.post-hero img{display:block;width:100%;max-height:70vh;min-height:220px;object-fit:contain}
+.post-sheet{position:relative;flex:1;padding:20px 24px 40px;background:var(--paper)}
+.post-hero+.post-sheet{margin-top:-20px;border-radius:24px 24px 0 0}
+.post-bar+.post-sheet{margin-top:16px}
+.post-sheet .post-tag.plain{margin-top:0}
+.post-sheet h1{margin:10px 0 14px;font-family:'Playfair Display',Georgia,serif;font-size:28px;line-height:1.2;overflow-wrap:anywhere}
+.post-sheet .post-text{margin-top:16px;font-size:16px}
+.post-note{margin:20px 0 0;padding:12px 14px;border-radius:14px;background:var(--cream);font-size:13px;line-height:1.5;color:#3d4038}
+
+/* Writing a post */
+.new-post-header{justify-content:flex-start}
+.new-post-header h1{margin:0;font-size:26px}
+.composer{display:flex;flex-direction:column;gap:16px;padding:0 24px 16px}
+.photo-picker{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:120px;border:2px dashed var(--green2);border-radius:20px;background:var(--paper);color:var(--green);font-size:15px;font-weight:700;cursor:pointer}
+.photo-picker.small-picker{flex-direction:row;min-height:48px;border-width:1px}
+.photo-picker:focus-within{outline:2px solid var(--green);outline-offset:2px}
+.photo-picker input,.topic-picker input{position:absolute;width:1px;height:1px;opacity:0}
+.media-preview{position:relative}
+.media-preview img{display:block;width:100%;height:260px;object-fit:contain;border-radius:20px;background:var(--paper)}
+.media-preview .icon-circle{position:absolute;right:10px;top:10px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field textarea,.place-field input{width:100%;border:1px solid var(--line2);border-radius:18px;background:var(--paper);color:var(--ink);font-size:16px}
+.field textarea{min-height:120px;padding:14px 16px;resize:vertical}
+.field .count{align-self:flex-end;margin-top:-4px;font-size:12px;color:var(--soft)}
+.place-field>span,.topic-picker legend{font-size:14px;font-weight:700}
+.place-field input{height:50px;padding:0 16px;border-radius:14px}
+.topic-picker{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;border:0;min-width:0}
+.topic-picker legend{padding:0;margin-bottom:8px}
+.topic-picker label{position:relative;cursor:pointer}
+.topic-picker span{display:flex;align-items:center;height:44px;padding:0 14px;border:1px solid var(--line2);border-radius:12px;background:var(--paper);font-size:14px}
+.topic-picker input:checked+span{background:var(--green);border-color:var(--green);color:white;font-weight:700}
+.topic-picker input:focus-visible+span{outline:2px solid var(--green);outline-offset:2px}
+.comments-field{display:flex;align-items:center;justify-content:space-between;min-height:44px;font-size:14px;font-weight:700;cursor:pointer}
+.comments-field input{width:22px;height:22px;accent-color:var(--green)}
+.new-post-submit{position:sticky;bottom:0;padding:8px 24px 20px;background:var(--cream)}
+.new-post-submit .form-error{margin:0 0 8px}
+/* Keeps a focused field from sliding under the sticky button. */
+.composer input,.composer textarea{scroll-margin-bottom:120px}
+
+/* Profile */
+.profile-head{background:var(--paper);margin-bottom:14px}
+
+/* The sample card on the landing page */
+.journal-preview .post{margin-top:14px;border-radius:18px}
+.journal-preview .post-image{aspect-ratio:2/1}
+
+@media(max-width:1100px){.app-shell{grid-template-columns:190px minmax(480px,680px)}}
+
+@media(max-width:760px){
+.app-shell{display:block}
+.sidebar{position:fixed;z-index:10;top:auto;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));height:76px;padding:0;border:1px solid var(--line);border-radius:38px;background:var(--paper);box-shadow:0 8px 24px rgba(23,25,22,.14);justify-content:center}
+.sidebar>.logo-button,.sidebar-bottom{display:none}
+.sidebar nav{display:grid;grid-template-columns:repeat(3,1fr);gap:0;justify-items:center;align-items:center;margin:0}
+.sidebar nav a{flex-direction:column;justify-content:center;gap:2px;width:76px;height:58px;padding:0;border-radius:29px}
+.sidebar nav a b{font-size:11px}
+.sidebar nav a.nav-new{width:58px;box-shadow:0 6px 16px rgba(23,77,53,.35)}
+.sidebar nav a.nav-new b{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.app-shell.focused .sidebar{display:none}
+.main-page{border:0;padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+.app-shell.focused .main-page{padding-bottom:0}
+.page-header{min-height:76px;padding:14px 16px}
+.board-logo{display:block}
+.board-logo img{display:block;height:30px;border-radius:4px}
+.board-title{margin-left:auto;text-align:right}
+.board-title h1{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.board-title p{font-size:10px}
+.topic-row{padding:0 16px 12px}
+.feed{padding:0 12px 12px;gap:12px}
+.post{padding:12px}
+.new-post{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
+.composer{flex:1;padding:0 16px 16px}
+.new-post-submit{padding:8px 16px calc(16px + env(safe-area-inset-bottom))}
+.post-sheet{padding:20px 18px 32px}
+}
+
+/* Small phones */
+@media(max-width:380px){
+.board-title p{display:none}
+.board-logo img{height:26px}
+.header-actions .primary.small{padding:0 14px}
+.landing-nav .brand img{height:26px}
+.hero-actions{flex-wrap:wrap}
+.hero-actions .button-link{white-space:nowrap}
+.new-post-header h1{font-size:23px}
+}

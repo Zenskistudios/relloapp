@@ -155,23 +155,25 @@ function SamplePage() {
           <div className="post-author">
             <span className="avatar">AO</span>
             <div className="author-meta">
-              <strong>Adaeze Okafor</strong>
-              <span>@adaeze · 12 min ago</span>
+              <p>
+                <strong>Adaeze Okafor</strong> shared a notice
+              </p>
+              <span className="post-time">12 min ago</span>
             </div>
           </div>
-          <div className="post-label">
-            <span>Community Notice</span>
-            <span>⌖ Yaba, Lagos</span>
+          <div className="post-photo">
+            <img
+              className="post-image"
+              src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=85"
+              alt=""
+            />
+            <span className="post-tag">Community Notice</span>
           </div>
+          <p className="post-place">Herbert Macaulay Way, Yaba</p>
           <p className="post-text">
-            The new pedestrian bridge on Herbert Macaulay Way is officially open. Please use the
-            designated crossing and give way to other commuters.
+            The new pedestrian bridge is officially open. Please use the designated crossing and
+            give way to other commuters.
           </p>
-          <img
-            className="post-image"
-            src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=85"
-            alt=""
-          />
         </article>
       </div>
     </div>

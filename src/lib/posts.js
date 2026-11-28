@@ -9,7 +9,7 @@ const POST_FIELDS = `
 `
 
 // Newest first. Pass the last post you have as `before` to get the next page.
-export async function fetchPosts({ authorId, before } = {}) {
+export async function fetchPosts({ authorId, category, before } = {}) {
   let query = supabase
     .from('posts')
     .select(POST_FIELDS)
@@ -18,6 +18,7 @@ export async function fetchPosts({ authorId, before } = {}) {
     .limit(PAGE_SIZE)
 
   if (authorId) query = query.eq('author_id', authorId)
+  if (category) query = query.eq('category', category)
 
   // Paging by (time, id) means new posts arriving never cause repeats or gaps.
   if (before) {
@@ -49,6 +50,15 @@ export async function createPost({ body, category, location, commentsEnabled, ph
     if (imagePath && error.code) await removePhoto(imagePath)
     throw error
   }
+}
+
+// Gives null when the post does not exist, was removed or is hidden.
+export async function fetchPost(id) {
+  const { data, error } = await supabase.from('posts').select(POST_FIELDS).eq('id', id).maybeSingle()
+  // 22P02: the address holds something that is not a post id at all.
+  if (error?.code === '22P02') return null
+  if (error) throw error
+  return data
 }
 
 export async function fetchProfile(handle) {

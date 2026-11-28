@@ -1,20 +1,30 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useNavigationType } from 'react-router'
 import { fetchPosts, PAGE_SIZE } from '../lib/posts.js'
 import Notice from './Notice.jsx'
 import PostCard from './PostCard.jsx'
 
-export default function PostList({ authorId, empty }) {
-  const [posts, setPosts] = useState([])
-  const [hasMore, setHasMore] = useState(false)
-  const [loading, setLoading] = useState(true)
+// What each list showed when it was last left, so that going back from a post
+// returns to the same place.
+const remembered = new Map()
+
+export default function PostList({ authorId, category, empty, restore = true }) {
+  const cacheKey = `${authorId ?? ''}|${category ?? ''}`
+  const goingBack = useNavigationType() === 'POP'
+  const [saved] = useState(() => (restore && goingBack ? remembered.get(cacheKey) : undefined))
+  const [posts, setPosts] = useState(saved?.posts ?? [])
+  const [hasMore, setHasMore] = useState(saved?.hasMore ?? false)
+  const [loading, setLoading] = useState(!saved)
   const [error, setError] = useState('')
   // Only the latest request may update the screen.
   const latestRequest = useRef(0)
+  const latest = useRef({ posts, hasMore, loading })
+  const scrollY = useRef(saved?.scrollY ?? 0)
 
   const load = useCallback(
     (before) => {
       const request = ++latestRequest.current
-      fetchPosts({ authorId, before }).then(
+      fetchPosts({ authorId, category, before }).then(
         (page) => {
           if (request !== latestRequest.current) return
           setPosts((current) => (before ? [...current, ...page] : page))
@@ -29,16 +39,37 @@ export default function PostList({ authorId, empty }) {
         },
       )
     },
-    [authorId],
+    [authorId, category],
   )
 
-  // The first page. `loading` already starts as true.
+  // The first page, unless the list is being put back as it was.
   useEffect(() => {
-    load()
+    if (!saved) load()
     return () => {
       latestRequest.current += 1
     }
-  }, [load])
+  }, [load, saved])
+
+  useLayoutEffect(() => {
+    latest.current = { posts, hasMore, loading }
+  })
+
+  useLayoutEffect(() => {
+    if (goingBack) window.scrollTo(0, scrollY.current)
+    const track = () => {
+      scrollY.current = window.scrollY
+    }
+    window.addEventListener('scroll', track, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', track)
+      const { posts, hasMore, loading } = latest.current
+      if (!loading && posts.length > 0) {
+        remembered.set(cacheKey, { posts, hasMore, scrollY: scrollY.current })
+      }
+    }
+    // Runs once per list: the key on <PostList> changes when the list does.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   function loadMore(before) {
     setLoading(true)

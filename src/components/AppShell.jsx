@@ -1,24 +1,31 @@
 import { Link, NavLink } from 'react-router'
 import { useAuth } from '../auth/AuthContext.js'
+import Icon from './Icon.jsx'
 
-export default function AppShell({ children }) {
+// `focused` screens (one post, writing a post) hide the phone's bottom bar.
+export default function AppShell({ children, focused = false }) {
   const { user, profile } = useAuth()
   const items = [
-    { label: 'Board', symbol: '⌂', to: '/home' },
-    { label: 'Create', symbol: '+', to: '/create' },
-    { label: 'Profile', symbol: '♙', to: profile ? `/profile/${profile.handle}` : '/profile' },
+    { label: 'Board', icon: 'board', to: '/home' },
+    { label: 'New post', icon: 'plus', to: '/create', main: true },
+    { label: 'Profile', icon: 'user', to: profile ? `/profile/${profile.handle}` : '/profile' },
   ]
 
   return (
-    <div className="app-shell">
+    <div className={focused ? 'app-shell focused' : 'app-shell'}>
       <aside className="sidebar">
         <Link className="logo-button" to="/" aria-label="RELLO home page">
           <img src="/brand/rello-icon.jpg" alt="" />
         </Link>
-        <nav>
+        <nav aria-label="Main">
           {items.map((item) => (
-            <NavLink key={item.label} to={item.to} end>
-              <span aria-hidden="true">{item.symbol}</span>
+            <NavLink
+              key={item.label}
+              to={item.to}
+              className={item.main ? 'nav-new' : undefined}
+              end
+            >
+              <Icon name={item.icon} size={item.main ? 26 : 22} />
               <b>{item.label}</b>
             </NavLink>
           ))}

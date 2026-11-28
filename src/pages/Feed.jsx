@@ -1,26 +1,38 @@
 import { useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useSearchParams } from 'react-router'
 import { useAuth } from '../auth/AuthContext.js'
 import AppShell from '../components/AppShell.jsx'
+import Icon from '../components/Icon.jsx'
 import Notice, { SetupNotice } from '../components/Notice.jsx'
 import PostList from '../components/PostList.jsx'
+import { TOPICS } from '../lib/categories.js'
 import { supabase } from '../lib/supabase.js'
 
 export default function Feed() {
   const { loading, user } = useAuth()
-  const [version, setVersion] = useState(0)
+  const [refreshes, setRefreshes] = useState(0)
+  const [params, setParams] = useSearchParams()
+  const topic = TOPICS.find((item) => item.id === params.get('topic'))
 
   return (
     <AppShell>
-      <header className="page-header">
-        <div>
+      <header className="page-header board-header">
+        <Link className="board-logo" to="/" aria-label="RELLO home page">
+          <img src="/brand/rello-logo.jpg" alt="" />
+        </Link>
+        <div className="board-title">
           <p>Newest first</p>
           <h1>Noticeboard</h1>
         </div>
         <div className="header-actions">
           {supabase && (
-            <button className="secondary small" onClick={() => setVersion(version + 1)}>
-              Refresh
+            <button
+              className="icon-circle"
+              type="button"
+              aria-label="Refresh"
+              onClick={() => setRefreshes(refreshes + 1)}
+            >
+              <Icon name="refresh" size={20} />
             </button>
           )}
           {!loading && !user && (
@@ -31,16 +43,32 @@ export default function Feed() {
         </div>
       </header>
       {supabase ? (
-        <PostList
-          key={version}
-          empty={
-            <Notice title="The board is empty.">
-              <p>
-                <Link to="/create">Post the first notice.</Link>
-              </p>
-            </Notice>
-          }
-        />
+        <>
+          <div className="topic-row" role="group" aria-label="Filter by topic">
+            {[undefined, ...TOPICS].map((item) => (
+              <button
+                key={item?.id ?? 'all'}
+                type="button"
+                aria-pressed={item?.id === topic?.id}
+                onClick={() => setParams(item ? { topic: item.id } : {}, { replace: true })}
+              >
+                {item?.chip ?? 'All'}
+              </button>
+            ))}
+          </div>
+          <PostList
+            key={`${topic?.id ?? 'all'}:${refreshes}`}
+            category={topic?.value}
+            restore={refreshes === 0}
+            empty={
+              <Notice title={topic ? `No posts under ${topic.chip} yet.` : 'The board is empty.'}>
+                <p>
+                  <Link to="/create">{topic ? 'Write a post.' : 'Post the first notice.'}</Link>
+                </p>
+              </Notice>
+            }
+          />
+        </>
       ) : (
         <SetupNotice />
       )}
