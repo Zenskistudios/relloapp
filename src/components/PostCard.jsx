@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { topicFor } from '../lib/categories.js'
-import { timeAgo } from '../lib/format.js'
+import { capitalizeFirst, timeAgo } from '../lib/format.js'
 import { photoUrl } from '../lib/photos.js'
 import Avatar from './Avatar.jsx'
 import ShareButton from './ShareButton.jsx'
@@ -11,6 +11,7 @@ export default function PostCard({ post }) {
   const { author } = post
   const topic = topicFor(post.category)
   const to = `/post/${post.id}`
+  const place = capitalizeFirst(post.location)
 
   return (
     <article className="post">
@@ -40,15 +41,15 @@ export default function PostCard({ post }) {
       ) : (
         <span className="post-tag plain">{post.category}</span>
       )}
-      {post.location && (
+      {place && (
         <h2 className="post-place">
-          <Link to={to}>{post.location}</Link>
+          <Link to={to}>{place}</Link>
         </h2>
       )}
       {post.body && <Excerpt text={post.body} to={to} />}
       <div className="post-foot">
         <Link to={to}>View post</Link>
-        <ShareButton path={to} title={post.location || `${author.display_name} on RELLO`} />
+        <ShareButton path={to} title={place || `${author.display_name} on RELLO`} />
       </div>
     </article>
   )

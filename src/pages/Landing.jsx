@@ -164,8 +164,8 @@ function SamplePage() {
           <div className="post-photo">
             <img
               className="post-image"
-              src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=85"
-              alt=""
+              src="/sample/bridge.svg"
+              alt="Drawing of a pedestrian bridge over a road"
             />
             <span className="post-tag">Community Notice</span>
           </div>

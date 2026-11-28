@@ -6,7 +6,7 @@ import Icon from '../components/Icon.jsx'
 import Notice, { SetupNotice } from '../components/Notice.jsx'
 import ShareButton from '../components/ShareButton.jsx'
 import { topicFor } from '../lib/categories.js'
-import { timeAgo } from '../lib/format.js'
+import { capitalizeFirst, timeAgo } from '../lib/format.js'
 import { photoUrl } from '../lib/photos.js'
 import { fetchPost } from '../lib/posts.js'
 import { supabase } from '../lib/supabase.js'
@@ -93,12 +93,13 @@ function PostView({ id }) {
   const { post } = state
   const { author } = post
   const topic = topicFor(post.category)
+  const place = capitalizeFirst(post.location)
 
   return (
     <article className="post-page">
       <div className={post.image_path ? 'post-bar over' : 'post-bar'}>
         <BackButton />
-        <ShareButton path={`/post/${post.id}`} title={post.location || 'A post on RELLO'} />
+        <ShareButton path={`/post/${post.id}`} title={place || 'A post on RELLO'} />
       </div>
       {post.image_path && (
         <a
@@ -115,7 +116,7 @@ function PostView({ id }) {
       )}
       <div className="post-sheet">
         <span className="post-tag plain">{post.category}</span>
-        <h1>{post.location || `${author.display_name} ${topic.did}`}</h1>
+        <h1>{place || `${author.display_name} ${topic.did}`}</h1>
         <div className="post-author">
           <Avatar name={author.display_name} />
           <div className="author-meta">

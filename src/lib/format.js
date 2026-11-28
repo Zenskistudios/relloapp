@@ -10,6 +10,12 @@ export function timeAgo(isoDate, now = Date.now()) {
   return then.toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 
+// For headlines. The saved text is left exactly as the person typed it.
+export function capitalizeFirst(text = '') {
+  const [first = '', ...rest] = Array.from(text)
+  return first.toUpperCase() + rest.join('')
+}
+
 export function initials(name = '') {
   return name
     .split(/\s+/)
