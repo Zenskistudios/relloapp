@@ -131,7 +131,14 @@ export default function Landing() {
   )
 }
 
-// An illustration of the product. Nothing in it is live data.
+// Free to use under the Unsplash License: https://unsplash.com/license
+const SAMPLE_PHOTO = {
+  src: 'https://images.unsplash.com/photo-1573662766191-066ba9570a4b',
+  page: 'https://unsplash.com/photos/yellow-vehicles-during-daytime-WSu7qcT3rVg',
+  by: 'sheyi owolabi',
+}
+
+// An illustration of the product. The post is made up; nothing in it is live.
 function SamplePage() {
   return (
     <div className="hero-product">
@@ -140,23 +147,12 @@ function SamplePage() {
         <span>Board</span>
       </div>
       <div className="journal-preview">
-        <div className="preview-top">
-          <span className="preview-logo">R</span>
-          <div>
-            <strong>Good morning, Adaeze</strong>
-            <small>Tuesday, 24 November</small>
-          </div>
-          <span className="avatar">AO</span>
-        </div>
-        <div className="preview-tabs">
-          <b>Latest</b>
-        </div>
         <article className="post">
           <div className="post-author">
             <span className="avatar">AO</span>
             <div className="author-meta">
               <p>
-                <strong>Adaeze Okafor</strong> shared a notice
+                <strong>Adaeze Okafor</strong> posted a traffic update
               </p>
               <span className="post-time">12 min ago</span>
             </div>
@@ -164,15 +160,23 @@ function SamplePage() {
           <div className="post-photo">
             <img
               className="post-image"
-              src="/sample/bridge.svg"
-              alt="Drawing of a pedestrian bridge over a road"
+              src={`${SAMPLE_PHOTO.src}?auto=format&fit=crop&w=1200&h=600&q=75`}
+              alt="A yellow danfo bus in Lagos"
+              width="1200"
+              height="600"
             />
-            <span className="post-tag">Community Notice</span>
+            <span className="post-tag">Traffic / Roads</span>
           </div>
-          <p className="post-place">Herbert Macaulay Way, Yaba</p>
+          <p className="photo-credit">
+            Photo:{' '}
+            <a href={SAMPLE_PHOTO.page} target="_blank" rel="noreferrer">
+              {SAMPLE_PHOTO.by} on Unsplash
+            </a>
+          </p>
+          <p className="post-place">Lagos</p>
           <p className="post-text">
-            The new pedestrian bridge is officially open. Please use the designated crossing and
-            give way to other commuters.
+            Traffic is moving slowly this evening. If you are taking a bus, give yourself extra
+            time.
           </p>
         </article>
       </div>
